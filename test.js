@@ -1,9 +1,10 @@
-var http = require('http');
+var jsdom = require('jsdom');
 
-http.createServer(function (request, response) {
-  response.writeHead(200, {'Content-Type': 'text/plain'});
-  response.end('Hello World\n');
-}).listen(8214);
-
-console.log('Server running at http://127.0.0.1:8124/');
-
+jsdom.env("http://yahoo.com", [
+  "http://code.jquery.com/jquery.js"
+], function (err, window) {
+  var $ = window.$;
+  $(".accordion-stories a").each(function () {
+    console.log($(this).text());
+  });
+});
